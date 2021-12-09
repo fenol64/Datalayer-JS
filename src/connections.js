@@ -1,7 +1,11 @@
 import mysql from "serverless-mysql";
 
 class ConnectDatabase {
-  constructor(driver, host, port = 3306, user, pass, database, options = {}) {
+
+  error = null;
+  db = null;
+
+  static GetInstance(driver, host, port = 3306, user, pass, database, options = {}) {
     const $return = {};
     $return.success = false;
     const con_params = {
@@ -14,15 +18,7 @@ class ConnectDatabase {
       options: options,
     };
 
-    if (
-      !(
-        con_params.driver &&
-        con_params.host &&
-        con_params.user &&
-        con_params.pass &&
-        con_params.database
-      )
-    ) {
+    if (!(con_params.driver && con_params.host && con_params.user && con_params.pass && con_params.database)) {
       $return.message = "[Error] => Dados não informados olhe seu .env ou os parametros";
     } else {
       this.params = {
@@ -51,26 +47,18 @@ class ConnectDatabase {
   mysql() {
     const $return = {};
 
-    const mysql_connector = mysql({ config: this.params });
-
-    if (mysql_connector) {
+    try {
       $return.success = true;
-    } else {
+      this.db = mysql_connector = mysql({ config: this.params });
+    } catch (err) {
       $return.success = false;
+      this.error = err;
     }
 
     return $return;
   }
+
+  static getError () {
+    return this.error;
+  }
 }
-
-const connect = new ConnectDatabase(
-  "mysql",
-  "localhost",
-  3306,
-  "root",
-  "!sec@1234",
-  "pdv"
-);
-
-
-console.log(connect);
