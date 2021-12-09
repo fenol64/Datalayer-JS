@@ -1,6 +1,6 @@
 import mysql from "serverless-mysql";
 
-class ConnectDatabase {
+class Connect {
 
   error = null;
   db = null;
