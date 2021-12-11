@@ -1,4 +1,4 @@
-import mysql from "serverless-mysql";
+const mysql = require("serverless-mysql")();
 
 export default class DB {
   constructor(connect_params) {
