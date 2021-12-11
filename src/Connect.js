@@ -1,6 +1,6 @@
 import mysql from "serverless-mysql";
 
-class Connect {
+export default class Connect {
 
   constructor(driver, params, options = {}) {
     this.success = false;
@@ -72,13 +72,4 @@ class Connect {
   }
 }
 
-(async function test() {
-  
-  const conn = await new Connect("mysql", {
-    pass: "",
-    database: "pmp"
-  }).exec("SELECT * FROM usuarios");
-
-  console.log(conn.data);
-}) ()
 
