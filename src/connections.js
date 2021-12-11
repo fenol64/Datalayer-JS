@@ -1,17 +1,17 @@
-const  mysql = require("serverless-mysql");
+import mysql from "serverless-mysql";
 
 class Connect {
 
-  constructor(driver, host, port = 3306, user, pass = "", database, options = {}) {
+  constructor(driver, params, options = {}) {
     this.success = false;
 
     const con_params = {
       driver: process.env.DRIVER || driver,
-      host: process.env.HOST || host,
-      port: process.env.PORT || port,
-      user: process.env.USER || user,
-      pass: process.env.USER || pass,
-      database: process.env.DATABASE || database,
+      host: process.env.HOST || (params.host ?? "localhost"),
+      port: process.env.PORT || (params.port ?? 3306),
+      user: process.env.USER || (params.user ?? "root"),
+      pass: process.env.USER || (params.pass ?? ""),
+      database: process.env.DATABASE || params.database,
       options
     };
 
@@ -27,45 +27,58 @@ class Connect {
     } else {
 
       const connect_to_driver = this[con_params.driver](con_params);
-      if (connect_to_driver.success) {
-        this.db = mysql;
+      
+      if (!connect_to_driver.error) {
         this.success = true;
         this.message = "[message] => banco conectado com sucesso!";
-        
       } else {
         this.message = "[erro] => Não foi possivel conectar ao banco.";
       }
     }
-
     return this;
   }
 
   async mysql(params) {
-    const $return = {};
-
-    try {
-
-      this.db = mysql({ config: params });
-      $return.success = true;
-
-    } catch (err) {
-      $return.success = false;
-      this.error = err;
-    }
-  
-    return $return;
+    this.error = null;
+    
+    if (this.db = mysql({ config: params })) 
+      this.error = false;
+     
+    return this;
   }
 
+  async exec(querysrt) {
 
-  async end() {
-    return await mysql.end();
+    if (this.success) {
+      try {
+        this.data = await this.db.query(querysrt);
+        this.close();
+      } catch (err) {
+        this.error = err; 
+      }
+
+    }
+  
+    return this;
+  }
+
+  async close() {
+    if (this.db.end()) {
+      return true;  
+    } else {
+      return false;
+    }
+     
   }
 }
 
 (async function test() {
   
-  const conn = new Connect("mysql", "localhost", 3306, "root", "", "pmp");
+  const conn = await new Connect("mysql", {
+    pass: "",
+    database: "pmp"
+  }).exec("SELECT * FROM usuarios");
 
-  console.log(await conn.db.query("select * FROM usuarios"));
+  console.log(conn.data);
 }) ()
 

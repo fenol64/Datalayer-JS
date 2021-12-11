@@ -1,4 +1,5 @@
 {
+    "type": "module",
     "dependencies": {
         "serverless-mysql": "^1.5.4"
     }
