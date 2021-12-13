@@ -31,11 +31,6 @@ export class dataLayer extends CrudTrait {
 
   }
 
-  join () {
-      
-  }
-
-
 }
 
 
