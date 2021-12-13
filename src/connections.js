@@ -2,10 +2,7 @@ import mysql from "serverless-mysql";
 
 class Connect {
 
-  error = null;
-  db = null;
-
-  static GetInstance(driver, host, port = 3306, user, pass, database, options = {}) {
+  constructor(driver, host, port = 3306, user, pass, database) {
     const $return = {};
     $return.success = false;
     const con_params = {
@@ -15,11 +12,19 @@ class Connect {
       user: user || process.env.USER,
       pass: pass || process.env.PASSWORD,
       database: database || process.env.DATABASE,
-      options: options,
     };
 
-    if (!(con_params.driver && con_params.host && con_params.user && con_params.pass && con_params.database)) {
-      $return.message = "[Error] => Dados não informados olhe seu .env ou os parametros";
+    if (
+      !(
+        con_params.driver &&
+        con_params.host &&
+        con_params.user &&
+        con_params.pass &&
+        con_params.database
+      )
+    ) {
+      $return.message =
+        "[Error] => Dados não informados olhe seu .env ou os parametros";
     } else {
       this.params = {
         driver: con_params.driver,
@@ -28,7 +33,6 @@ class Connect {
         user: con_params.user,
         password: con_params.pass,
         database: con_params.database,
-        options: con_params.options,
       };
 
       const connect_to_driver = this[this.params.driver]();
@@ -44,21 +48,37 @@ class Connect {
     return $return;
   }
 
-  mysql() {
+  async mysql() {
     const $return = {};
 
     try {
       $return.success = true;
-      this.db = mysql_connector = mysql({ config: this.params });
+      this.db = mysql({ config: this.params });
     } catch (err) {
       $return.success = false;
       this.error = err;
     }
 
-    return $return;
+    return { data: this , ...$return};
   }
 
-  static getError () {
+  static getError() {
     return this.error;
   }
+}
+
+const conn = new Connect(
+  "mysql",
+  "localhost",
+  3306,
+  "root",
+  "!sec@1234",
+  "pdv"
+);
+console.log(conn);
+if (conn.success) {
+  const results = conn.db.query("SELECT * FROM categories");
+  console.log(results);
+} else {
+  console.log(Connect.getError());
 }
