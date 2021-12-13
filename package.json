@@ -1,4 +1,9 @@
 {
+    "scripts": {
+        "query": "node ./src/queryBuilder.js",
+        "datalayer": "node ./src/dataLayer.js",
+        "conn" : "node ./src/Connect.js"
+    },
     "type": "module",
     "dependencies": {
         "serverless-mysql": "^1.5.4"
