@@ -1,6 +1,7 @@
 import Connect from "./Connect.js";
+import CrudTrait from "./CrudTrait.js";
 
-export class dataLayer {
+export class dataLayer extends CrudTrait {
   conn = null;
 
   constructor(entity, required, primary = "id", timestamps = true) {
@@ -10,12 +11,41 @@ export class dataLayer {
     this.timestamps = timestamps;
   }
 
-  Connect() {
-    this.conn = new Connect("mysql", {
-      pass: "!sec@1234",
-      database: "sci",
-    });
+  save() {
 
-    return this;
   }
+
+  find() {
+
+  }
+
+  update() {
+
+  } 
+
+  destroy() {
+
+  }
+
+  delete () {
+
+  }
+
+  join () {
+      
+  }
+
+
 }
+
+
+
+
+//   Connect() {
+//     this.conn = new Connect("mysql", {
+//       pass: "!sec@1234",
+//       database: "sci",
+//     });
+
+//     return this;
+//   }

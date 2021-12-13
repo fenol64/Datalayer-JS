@@ -1,6 +1,6 @@
 import Connect from "./Connect.js";
 
-export class crudTrait {
+export class CrudTrait {
 
     create() {
 
@@ -11,7 +11,7 @@ export class crudTrait {
     }
 
     delete () {
-        
+
     }
 
     filter(data)
