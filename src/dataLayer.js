@@ -1,11 +1,11 @@
 import Connect from "./Connect.js";
 import CrudTrait from "./CrudTrait.js";
 
-export default class DataLayer extends CrudTrait {
+export default class DataLayer extends Connect {
   conn = null;
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
-
+    super()
     this.entity = entity;
     this.required = required;
     this.primary = primary;

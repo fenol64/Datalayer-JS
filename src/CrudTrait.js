@@ -1,6 +1,6 @@
 import Connect from "./Connect.js";
 
-export class CrudTrait {
+export default class CrudTrait {
 
     create() {
 
