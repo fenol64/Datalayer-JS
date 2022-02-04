@@ -2,16 +2,17 @@ import Connect from "./Connect.js";
 import CrudTrait from "./CrudTrait.js";
 
 export default class DataLayer extends Connect {
-  conn = null;
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
-    super()
+
+    super("mysql", {
+      // your conn param here;
+    })
+
     this.entity = entity;
     this.required = required;
     this.primary = primary;
     this.timestamps = timestamps;
-
-    this.conn = new Connect("mysql");
 
     return this;
   }
@@ -21,8 +22,12 @@ export default class DataLayer extends Connect {
     return this;
   }
 
-  find() {
-    this.sql = `SELECT ${this.columns ?? '*'} FROM ${this.entity} ${this.joins} ${this.where}`;
+  find(params) {
+
+    let joins = ''
+    let where = ''
+
+    this.sql = `SELECT ${this.columns ?? '*'} FROM ${this.entity} ${joins} ${where};`;
     return this;
   }
 
@@ -30,6 +35,7 @@ export default class DataLayer extends Connect {
     this.sql = `SELECT ${this.columns ?? '*'} FROM ${this.entity} ${this.joins} WHERE ${this.primary} = ${id}`;
     return this;
   }
+
 
   update() {
 
@@ -43,7 +49,10 @@ export default class DataLayer extends Connect {
 
   }
 
+  async fetch(all = false) {
+    this.executed = await super.exec();
+    if (all) return this
+    else return this.data
+  }
+
 }
-
-
-

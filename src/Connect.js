@@ -1,8 +1,7 @@
 import mysql from "serverless-mysql";
-
 export default class Connect {
 
-  constructor(driver, params, options = {}) {
+  constructor(driver, params = {}, options = {}) {
     this.success = false;
 
     const con_params = {
@@ -10,10 +9,11 @@ export default class Connect {
       host: process.env.HOST || (params.host ?? "localhost"),
       port: process.env.PORT || (params.port ?? 3306),
       user: process.env.USER || (params.user ?? "root"),
-      pass: process.env.USER || (params.pass ?? ""),
+      password: process.env.PASSWORD || (params.password ?? ""),
       database: process.env.DATABASE || params.database,
-      options
     };
+
+    console.log(con_params)
 
     if (
       !(
@@ -23,7 +23,7 @@ export default class Connect {
         con_params.database
       )
     ) {
-      this.message = "[Error] => Dados não informados olhe seu .env e/ou os parametros";
+      this.message = "[Error] => Dados não informados olhe seu .env e/ou os parâmetros";
     } else {
 
       const connect_to_driver = this[con_params.driver](con_params);
@@ -47,23 +47,20 @@ export default class Connect {
     return this;
   }
 
-  async exec(querysrt) {
-
+  async exec() {
     if (this.success) {
       try {
-        this.data = await this.db.query(querysrt);
+        this.data = await this.db.query(this.sql);
         this.close();
       } catch (err) {
         this.error = err; 
       }
-
     }
-  
     return this;
   }
 
   async close() {
-    if (this.db.end()) {
+    if (this.db.quit()) {
       return true;  
     } else {
       return false;

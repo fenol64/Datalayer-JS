@@ -7,6 +7,14 @@ class User extends DataLayer {
   }
 }
 
-const user = new User().find();
+const user = await new User().find().fetch();
 
 console.log(user)
+
+
+
+
+
+
+
+
