@@ -13,8 +13,6 @@ export default class Connect {
       database: process.env.DATABASE || params.database,
     };
 
-    console.log(con_params)
-
     if (
       !(
         con_params.driver &&
@@ -32,7 +30,7 @@ export default class Connect {
         this.success = true;
         this.message = "[message] => banco conectado com sucesso!";
       } else {
-        this.message = "[erro] => Não foi possivel conectar ao banco.";
+        this.message = "[erro] => Não foi possível conectar ao banco.";
       }
     }
     return this;

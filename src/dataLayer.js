@@ -22,19 +22,44 @@ export default class DataLayer extends Connect {
   }
 
   find(params) {
+    const { join, where } = params;
 
-    let joins = ''
-    let where = ''
+    this.sql = `SELECT ${params.columns.join(', ') ?? '*'} FROM ${this.entity} `;
 
-    this.sql = `SELECT ${this.columns ?? '*'} FROM ${this.entity} ${joins} ${where};`;
+    if (join) {
+
+      switch (join.type) {
+
+        case 'inner':
+          join.type = "INNER JOIN"
+          break;
+
+        case 'left':
+          join.type = "LEFT JOIN"
+          break;
+
+        case 'right':
+          join.type = "RIGHT JOIN"
+          break;
+
+      }
+      this.sql += `${join.type} ${join.table} ON ${join.condition}`
+
+    }
+
+    if (where) {
+      this.sql += ' WHERE '
+      params.where.map(clause => this.sql += clause)
+    }
+
+    
     return this;
   }
 
   findById(id) {
-    this.user_id = id;
-
-    this.sql = `SELECT ${this.columns ?? '*'} FROM ${this.entity} ${this.joins} WHERE ${this.primary} = ${id}`;
-    return this;
+    return this.find({ where: [
+      `${this.primary} = ${id}`
+    ]}).fetch();
   }
 
 
