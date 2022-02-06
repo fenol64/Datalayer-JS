@@ -1,13 +1,12 @@
 import Connect from "./Connect.js";
 import CrudTrait from "./CrudTrait.js";
+import 'dotenv/config'
 
 export default class DataLayer extends Connect {
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
 
-    super("mysql", {
-      // your conn param here;
-    })
+    super("mysql")
 
     this.entity = entity;
     this.required = required;
@@ -32,6 +31,8 @@ export default class DataLayer extends Connect {
   }
 
   findById(id) {
+    this.user_id = id;
+
     this.sql = `SELECT ${this.columns ?? '*'} FROM ${this.entity} ${this.joins} WHERE ${this.primary} = ${id}`;
     return this;
   }
