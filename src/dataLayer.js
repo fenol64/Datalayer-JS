@@ -26,7 +26,7 @@ export default class DataLayer extends Connect {
     return this;
   }
 
-  update(update_obj, where = null) {
+  async update(update_obj, where = null) {
     if (this.timestamps) 
       update_obj.updated_at = new Date().toISOString().replace('T', " ").split('.')[0];
     
@@ -34,7 +34,7 @@ export default class DataLayer extends Connect {
     delete update_obj[this.primary]
 
     this.sql = `UPDATE ${this.entity} SET ${Object.entries(update_obj).map(([key, value]) => `${key}='${value}'`)} WHERE ${this.primary} = ${id} ${where ?? ""}`;
-    super.exec()
+    this.data = await super.exec()
 
     return this;
   } 

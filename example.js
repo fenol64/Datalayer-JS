@@ -6,7 +6,7 @@ class User extends DataLayer {
       super("users_roles", [], "id", true)
   }
 }
-const user = new User()
+
 
 //await user.find({ 
 //   entity_nickname: "user",
@@ -24,7 +24,7 @@ const user = new User()
 //   active: 1
 // })
 
-user.update({
+const user = await  new User().update({
   id: 4,
   name: "teste222",
   sector: 'testr345',

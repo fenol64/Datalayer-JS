@@ -49,15 +49,17 @@ export default class Connect {
   }
 
   async exec() {
-    if (this.success) {
-      try {
-        this.data = await this._db.query(this.sql);
-        this.close();
-      } catch (err) {
-        this.error = err; 
-      }
+    this.success = false;
+    let data;
+    try {
+      data = await this._db.query(this.sql);
+      this.success = true;
+      await this.close();
+    } catch (err) {
+      this.error = err; 
     }
-    return this;
+    
+    return data;
   }
 
   async close() {
