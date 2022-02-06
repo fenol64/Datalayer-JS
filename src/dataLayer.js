@@ -18,7 +18,7 @@ export default class DataLayer extends Connect {
   create(insert_obj) {
 
     if (this.timestamps) 
-      insert_obj.created_at = new Date.now();
+      insert_obj.created_at = new Date().toISOString().replace('T', " ").split('.')[0];
     
     this.sql = `INSERT INTO ${this.entity} (${Object.keys(insert_obj).join(', ')}) VALUES (${Object.values(insert_obj).map(value => `'${value}'`)})`;
     super.exec()
@@ -28,7 +28,7 @@ export default class DataLayer extends Connect {
 
   update(update_obj, where = null) {
     if (this.timestamps) 
-      update_obj.updated_at = new Date.now();
+      update_obj.updated_at = new Date().toISOString().replace('T', " ").split('.')[0];
     
     let id = update_obj[this.primary]
     delete update_obj[this.primary]

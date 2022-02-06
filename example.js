@@ -3,7 +3,7 @@ import DataLayer  from "./src/DataLayer.js";
 class User extends DataLayer {
   constructor() {
       // entity, required, primary and timestamps
-      super("users_roles", [], "id", false)
+      super("users_roles", [], "id", true)
   }
 }
 const user = new User()
