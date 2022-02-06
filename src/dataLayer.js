@@ -1,12 +1,11 @@
 import Connect from "./Connect.js";
-import CrudTrait from "./CrudTrait.js";
 import 'dotenv/config'
 
 export default class DataLayer extends Connect {
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
 
-    super("mysql")
+    super()
 
     this.entity = entity;
     this.required = required;
@@ -16,35 +15,54 @@ export default class DataLayer extends Connect {
     return this;
   }
 
-  save(input_insert) {
-    this.sql = `INSERT INTO ${this.entity} (${Object.keys(input_insert).join(', ')}) VALUES (${Object.values(input_insert).join(', ')})`;
+  create(insert_obj) {
+
+    if (this.timestamps) 
+      insert_obj.created_at = new Date.now();
+    
+    this.sql = `INSERT INTO ${this.entity} (${Object.keys(insert_obj).join(', ')}) VALUES (${Object.values(insert_obj).map(value => `'${value}'`)})`;
+    super.exec()
+
     return this;
   }
 
+  update(update_obj, where = null) {
+    if (this.timestamps) 
+      update_obj.updated_at = new Date.now();
+    
+    let id = update_obj[this.primary]
+    delete update_obj[this.primary]
+
+    this.sql = `UPDATE ${this.entity} SET ${Object.entries(update_obj).map(([key, value]) => `${key}='${value}'`)} WHERE ${this.primary} = ${id} ${where ?? ""}`;
+    super.exec()
+
+    return this;
+  } 
+
   find(params) {
-    const { join, where } = params;
+    const { joins, where, entity_nickname } = params;
 
-    this.sql = `SELECT ${params.columns.join(', ') ?? '*'} FROM ${this.entity} `;
+    this.sql = `SELECT ${params.columns.join(', ') ?? '*'} FROM ${this.entity} ${` AS ${entity_nickname} ` ?? ""}`;
 
-    if (join) {
+    if (joins) {
+      joins.forEach(join => {
+        switch (join.type) {
 
-      switch (join.type) {
-
-        case 'inner':
-          join.type = "INNER JOIN"
-          break;
-
-        case 'left':
-          join.type = "LEFT JOIN"
-          break;
-
-        case 'right':
-          join.type = "RIGHT JOIN"
-          break;
-
-      }
-      this.sql += `${join.type} ${join.table} ON ${join.condition}`
-
+          case 'inner':
+            join.type = "INNER JOIN"
+            break;
+  
+          case 'left':
+            join.type = "LEFT JOIN"
+            break;
+  
+          case 'right':
+            join.type = "RIGHT JOIN"
+            break;
+  
+        }
+        this.sql += `${join.type} ${join.table} ON ${join.conditions.join(', ')}`
+      })
     }
 
     if (where) {
@@ -61,11 +79,6 @@ export default class DataLayer extends Connect {
       `${this.primary} = ${id}`
     ]}).fetch();
   }
-
-
-  update() {
-
-  } 
 
   destroy(destroy = false) {
 

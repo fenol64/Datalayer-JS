@@ -1,8 +1,9 @@
 import mysql from "serverless-mysql";
 export default class Connect {
 
+  _db;
+
   constructor(driver, params = {}, options = {}) {
-    this.success = false;
 
     const con_params = {
       driver: process.env.DRIVER || driver,
@@ -25,30 +26,32 @@ export default class Connect {
     } else {
 
       const connect_to_driver = this[con_params.driver](con_params);
-      
-      if (!connect_to_driver.error) {
+
+      if (!connect_to_driver) {
+        this.success = false;
+        this.message = "[erro] => Não foi possível conectar ao banco.";
+      } else {
         this.success = true;
         this.message = "[message] => banco conectado com sucesso!";
-      } else {
-        this.message = "[erro] => Não foi possível conectar ao banco.";
       }
     }
     return this;
   }
 
   async mysql(params) {
-    this.error = null;
-    
-    if (this.db = mysql({ config: params })) 
-      this.error = false;
-     
-    return this;
+    let success = false; 
+
+    if (this._db = mysql({ config: params })) {
+      success = true
+    }
+
+    return success;
   }
 
   async exec() {
     if (this.success) {
       try {
-        this.data = await this.db.query(this.sql);
+        this.data = await this._db.query(this.sql);
         this.close();
       } catch (err) {
         this.error = err; 
@@ -58,7 +61,7 @@ export default class Connect {
   }
 
   async close() {
-    if (this.db.quit()) {
+    if (this._db.quit()) {
       return true;  
     } else {
       return false;

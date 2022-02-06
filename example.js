@@ -3,18 +3,33 @@ import DataLayer  from "./src/DataLayer.js";
 class User extends DataLayer {
   constructor() {
       // entity, required, primary and timestamps
-      super("users", [], "id", true)
+      super("users_roles", [], "id", false)
   }
 }
+const user = new User()
 
-const user = await new User().find({ 
-  columns: ["users.username", "users_roles.name as role"],
-  join: {
-    type: "left",
-    table: "users_roles",
-    condition: "users.role_id = users_roles.id"
-  }
-}).fetch(true)
+//await user.find({ 
+//   entity_nickname: "user",
+//   columns: ["user.username", "users_roles.name as role"],
+//   joins: [{
+//     type: "left",
+//     table: "users_roles",
+//     conditions: ["user.role_id = users_roles.id"]
+//   }]
+// }).fetch(true)
+
+// user.create({
+//   name: "teste",
+//   sector: 'testr',
+//   active: 1
+// })
+
+user.update({
+  id: 4,
+  name: "teste222",
+  sector: 'testr345',
+  active: 1
+})
 
 console.log(user)
 
