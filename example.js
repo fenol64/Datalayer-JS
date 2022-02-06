@@ -8,6 +8,9 @@ class User extends DataLayer {
 }
 
 
+const user = new User();
+
+
 //await user.find({ 
 //   entity_nickname: "user",
 //   columns: ["user.username", "users_roles.name as role"],
@@ -24,14 +27,15 @@ class User extends DataLayer {
 //   active: 1
 // })
 
-const user = await  new User().update({
-  id: 4,
-  name: "teste222",
-  sector: 'testr345',
-  active: 1
-})
+// user.update({
+//   id: 4,
+//   name: "teste222",
+//   sector: 'testr345',
+//   active: 1
+// })
 
-console.log(user)
+
+await user.findById(4)
 
 
 

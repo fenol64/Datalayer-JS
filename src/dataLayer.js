@@ -34,15 +34,15 @@ export default class DataLayer extends Connect {
     delete update_obj[this.primary]
 
     this.sql = `UPDATE ${this.entity} SET ${Object.entries(update_obj).map(([key, value]) => `${key}='${value}'`)} WHERE ${this.primary} = ${id} ${where ?? ""}`;
-    this.data = await super.exec()
+    this.data = await super.exec();
 
     return this;
   } 
 
-  find(params) {
-    const { joins, where, entity_nickname } = params;
+  async find(params = null) {
+    const {columns, joins, where, entity_nickname } = params ;
 
-    this.sql = `SELECT ${params.columns.join(', ') ?? '*'} FROM ${this.entity} ${` AS ${entity_nickname} ` ?? ""}`;
+    this.sql = `SELECT ${columns.join(', ') ?? '*'} FROM ${this.entity} ${` AS ${entity_nickname} ` ?? ""}`;
 
     if (joins) {
       joins.forEach(join => {
@@ -70,26 +70,34 @@ export default class DataLayer extends Connect {
       params.where.map(clause => this.sql += clause)
     }
 
-    
+    this.data = await super.exec()
+
     return this;
   }
 
   findById(id) {
     return this.find({ where: [
       `${this.primary} = ${id}`
-    ]}).fetch();
+    ]}).fetch()
+    
+    
   }
 
   destroy(destroy = false) {
+    if (destroy) 
+      this.delete();
+    else 
+      this.update({
+        deleted_at: new Date().toISOString().replace('T', " ").split('.')[0]
+      });
 
   }
 
   delete () {
-
+    this.sql = `DELETE FROM ${this.entity} WHERE ${this.primary} = ${id}`
   }
 
-  async fetch(all = false) {
-    this.executed = await super.exec();
+  fetch(all = false) {
     if (all) return this
     else return this.data
   }

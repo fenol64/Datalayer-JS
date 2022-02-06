@@ -50,16 +50,15 @@ export default class Connect {
 
   async exec() {
     this.success = false;
-    let data;
     try {
-      data = await this._db.query(this.sql);
+      this.data = await this._db.query(this.sql);
       this.success = true;
       await this.close();
     } catch (err) {
       this.error = err; 
     }
     
-    return data;
+    return this;
   }
 
   async close() {
