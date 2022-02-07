@@ -7,11 +7,10 @@ class User extends DataLayer {
   }
 }
 
+const user = (new User())
 
-const user = new User();
 
-
-//await user.find({ 
+// user.find({ 
 //   entity_nickname: "user",
 //   columns: ["user.username", "users_roles.name as role"],
 //   joins: [{
@@ -19,7 +18,7 @@ const user = new User();
 //     table: "users_roles",
 //     conditions: ["user.role_id = users_roles.id"]
 //   }]
-// }).fetch(true)
+// }).fetch()
 
 // user.create({
 //   name: "teste",
@@ -27,15 +26,21 @@ const user = new User();
 //   active: 1
 // })
 
-// user.update({
-//   id: 4,
-//   name: "teste222",
-//   sector: 'testr345',
-//   active: 1
-// })
+user.update({
+  id: 4,
+  name: "teste2234324222",
+  sector: 'testr234223424334345',
+  active: 1
+}).save()
 
 
-await user.findById(4)
+// console.log(await user.find().fetch())
+
+if (user.fail()) {
+  console.log(user.fail())
+}
+
+console.log(user)
 
 
 

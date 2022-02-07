@@ -15,18 +15,21 @@ export default class DataLayer extends Connect {
     return this;
   }
 
+  save() {
+    return super.exec();
+  }
+
   create(insert_obj) {
 
     if (this.timestamps) 
       insert_obj.created_at = new Date().toISOString().replace('T', " ").split('.')[0];
     
     this.sql = `INSERT INTO ${this.entity} (${Object.keys(insert_obj).join(', ')}) VALUES (${Object.values(insert_obj).map(value => `'${value}'`)})`;
-    super.exec()
 
     return this;
   }
 
-  async update(update_obj, where = null) {
+  update(update_obj, where = null) {
     if (this.timestamps) 
       update_obj.updated_at = new Date().toISOString().replace('T', " ").split('.')[0];
     
@@ -34,15 +37,15 @@ export default class DataLayer extends Connect {
     delete update_obj[this.primary]
 
     this.sql = `UPDATE ${this.entity} SET ${Object.entries(update_obj).map(([key, value]) => `${key}='${value}'`)} WHERE ${this.primary} = ${id} ${where ?? ""}`;
-    this.data = await super.exec();
 
     return this;
   } 
 
-  async find(params = null) {
-    const {columns, joins, where, entity_nickname } = params ;
+  find(params = {}) {
+    
+    const {columns = [], joins, where, entity_nickname} = params ;
 
-    this.sql = `SELECT ${columns.join(', ') ?? '*'} FROM ${this.entity} ${` AS ${entity_nickname} ` ?? ""}`;
+    this.sql = `SELECT ${columns.length > 0 ?columns.join(', ') : '*'} FROM ${this.entity} ${entity_nickname ? `AS ${entity_nickname} `: ''}`;
 
     if (joins) {
       joins.forEach(join => {
@@ -70,17 +73,13 @@ export default class DataLayer extends Connect {
       params.where.map(clause => this.sql += clause)
     }
 
-    this.data = await super.exec()
-
     return this;
   }
 
   findById(id) {
     return this.find({ where: [
       `${this.primary} = ${id}`
-    ]}).fetch()
-    
-    
+    ]})
   }
 
   destroy(destroy = false) {
@@ -90,16 +89,24 @@ export default class DataLayer extends Connect {
       this.update({
         deleted_at: new Date().toISOString().replace('T', " ").split('.')[0]
       });
-
+      return this;
   }
 
   delete () {
-    this.sql = `DELETE FROM ${this.entity} WHERE ${this.primary} = ${id}`
+    this.sql = `DELETE FROM ${this.entity} WHERE ${this.primary} = ${id}`;
+
+    return this;
   }
 
-  fetch(all = false) {
+  async fetch(all = false) {
+    this.executed = await super.exec();
+    
     if (all) return this
-    else return this.data
+    else return this.executed
+  }
+
+  fail() {
+    return super.getError()
   }
 
 }

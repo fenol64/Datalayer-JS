@@ -1,8 +1,6 @@
 import mysql from "serverless-mysql";
 export default class Connect {
 
-  _db;
-
   constructor(driver, params = {}, options = {}) {
 
     const con_params = {
@@ -41,7 +39,7 @@ export default class Connect {
   async mysql(params) {
     let success = false; 
 
-    if (this._db = mysql({ config: params })) {
+    if (this.db = mysql({ config: params })) {
       success = true
     }
 
@@ -51,9 +49,9 @@ export default class Connect {
   async exec() {
     this.success = false;
     try {
-      this.data = await this._db.query(this.sql);
+      this.data = await this.db.query(this.sql);
       this.success = true;
-      await this.close();
+      this.close();
     } catch (err) {
       this.error = err; 
     }
@@ -61,8 +59,12 @@ export default class Connect {
     return this;
   }
 
+  getError () {
+    return this.error;
+  }
+
   async close() {
-    if (this._db.quit()) {
+    if (this.db.quit()) {
       return true;  
     } else {
       return false;
