@@ -1,7 +1,7 @@
 # Datalayer-JS
-The datalayer-js is a persistent abstraction component of your database that PDO has prepared instructions for performing common routines such as registering, reading, editing, and removing data.
+The datalayer-js is a persistent abstraction component of your database that serveless-mysql has prepared instructions for performing common routines such as registering, reading, editing, and removing data.
 
-O datalayer-js é um componente para abstração de persistência no seu banco de dados que usa PDO com prepared statements para executar rotinas comuns como cadastrar, ler, editar e remover dados.
+O datalayer-js é um componente para abstração de persistência no seu banco de dados que usa serveless-mysql com prepared statements para executar rotinas comuns como cadastrar, ler, editar e remover dados.
 
 # Highlights
 - Easy to set up (Fácil de configurar)
