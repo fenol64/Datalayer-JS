@@ -11,7 +11,7 @@ const user = (new User())
 
 // const select_users = await user.find().fetch()
 
-let userfind = await user.find({ 
+await user.find({ 
   entity_nickname: "user",
   columns: ["user.username", "users_roles.name as role"],
   joins: [{
@@ -23,6 +23,7 @@ let userfind = await user.find({
   group_by: "user.id",
   order_by: "user.id"
 }).fetch(true)
+
 
 // user.create({
 //   name: "teste",
@@ -43,10 +44,10 @@ let userfind = await user.find({
 
 
 if (user.fail()) {
-  console.log(user.fail())
+  // console.log(user.fail())
 }
 
-console.log(userfind)
+console.log(user)
 
 
 

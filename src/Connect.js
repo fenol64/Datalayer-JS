@@ -51,11 +51,11 @@ export default class Connect {
     try {
       this.data = await this.db.query(this.sql);
       this.success = true;
-      this.close();
     } catch (err) {
-      this.error = err; 
+      let error = err; 
+      this.error = error; 
     }
-    
+    this.close();
     return this;
   }
 

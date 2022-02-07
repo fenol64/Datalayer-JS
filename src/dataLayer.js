@@ -116,7 +116,7 @@ export default class DataLayer extends Connect {
   }
 
   async fetch(all = false) {
-
+    
     let data = await super.exec();
     if (all) return data
     else return data.data
