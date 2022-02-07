@@ -9,6 +9,7 @@ class User extends DataLayer {
 
 const user = (new User())
 
+// const select_users = await user.find().fetch()
 
 // user.find({ 
 //   entity_nickname: "user",
@@ -24,23 +25,25 @@ const user = (new User())
 //   name: "teste",
 //   sector: 'testr',
 //   active: 1
-// })
+// }).save()
 
-user.update({
-  id: 4,
-  name: "teste2234324222",
-  sector: 'testr234223424334345',
-  active: 1
-}).save()
+// let user_update = await user.update({
+//   id: 4,
+//   name: "testador",
+//   sector: 'teste',
+//   active: 1
+// }).save()
 
 
-// console.log(await user.find().fetch())
+let findUsers = await user.findById(7)
+await findUsers.destroy()
+
 
 if (user.fail()) {
   console.log(user.fail())
 }
 
-console.log(user)
+console.log(findUsers)
 
 
 

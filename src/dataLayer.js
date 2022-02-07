@@ -15,8 +15,9 @@ export default class DataLayer extends Connect {
     return this;
   }
 
-  save() {
-    return super.exec();
+  async save() {
+    await super.exec();
+    return this;
   }
 
   create(insert_obj) {
@@ -76,33 +77,40 @@ export default class DataLayer extends Connect {
     return this;
   }
 
-  findById(id) {
-    return this.find({ where: [
-      `${this.primary} = ${id}`
-    ]})
-  }
+  async findById(id) {
 
-  destroy(destroy = false) {
-    if (destroy) 
-      this.delete();
-    else 
-      this.update({
-        deleted_at: new Date().toISOString().replace('T', " ").split('.')[0]
-      });
-      return this;
-  }
-
-  delete () {
-    this.sql = `DELETE FROM ${this.entity} WHERE ${this.primary} = ${id}`;
+    this.data = await this.find({ where: [
+          `${this.primary} = ${id}`
+      ]}).fetch();
 
     return this;
   }
 
+  async destroy(exclude = false) {
+
+    const id = this.data[0].id
+
+    if (exclude) 
+      this.delete(id);
+    else 
+      await this.update({
+        id,
+        deleted_at: new Date().toISOString().replace('T', " ").split('.')[0]
+      }).save();
+      return this;
+  }
+
+  async delete (id) {
+    this.sql = `DELETE FROM ${this.entity} WHERE ${this.primary} = ${id}`;
+    this.data = await super.exec()
+    return this;
+  }
+
   async fetch(all = false) {
-    this.executed = await super.exec();
-    
-    if (all) return this
-    else return this.executed
+
+    let data = await super.exec();
+    if (all) return data
+    else return data.data
   }
 
   fail() {
