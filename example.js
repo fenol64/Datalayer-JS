@@ -25,22 +25,22 @@ await user.find({
 }).fetch(true)
 
 
-// user.create({
-//   name: "teste",
-//   sector: 'teste',
-//   active: 1
-// }).save()
+user.create({
+  name: "teste",
+  sector: 'teste',
+  active: 1
+}).save()
 
-// let user_update = await user.update({
-//   id: 4,
-//   name: "testador",
-//   sector: 'teste',
-//   active: 1
-// }).save()
+await user.update({
+  id: 4,
+  name: "testador",
+  sector: 'teste',
+  active: 1
+}).save()
 
 
-// let findUsers = await user.findById(7)
-// await findUsers.destroy()
+let findUsers = await user.findById(7)
+await findUsers.destroy()
 
 
 if (user.fail()) {
