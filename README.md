@@ -1,3 +1,8 @@
+[![Maintainer](http://img.shields.io/badge/maintainer-NOX%E2%80%930202-blue.svg?style=flat-square)](https://www.instagram.com/phat_oliveira/)
+[![Source Code](http://img.shields.io/badge/source-db%E2%80%93datalayer%E2%80%93js-blue.svg?style=flat-square)](https://github.com/robsonvleite/datalayer)
+[![Latest Version](http://img.shields.io/badge/version-v0.0.1-blue.svg?style=flat-square)](https://github.com/robsonvleite/datalayer/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+
 # Datalayer-JS
 The datalayer-js is a persistent abstraction component of your database that serveless-mysql has prepared instructions for performing common routines such as registering, reading, editing, and removing data.
 
