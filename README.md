@@ -17,7 +17,7 @@ O datalayer-js é um componente para abstração de persistência no seu banco d
 DataLayer-js is available via NPM: 
 
 ```
-  npm i datalayerjs
+  npm i db-datalayer-js
 ```
 
 on the root of the project create a `` .env  `` file with the following contents.
