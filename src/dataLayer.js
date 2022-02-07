@@ -15,11 +15,6 @@ export default class DataLayer extends Connect {
     return this;
   }
 
-  async save() {
-    await super.exec();
-    return this;
-  }
-
   create(insert_obj) {
 
     if (this.timestamps) 
@@ -44,7 +39,7 @@ export default class DataLayer extends Connect {
 
   find(params = {}) {
     
-    const {columns = [], joins, where, entity_nickname} = params ;
+    const {columns = [], joins, where, entity_nickname, limit, group_by, order_by} = params ;
 
     this.sql = `SELECT ${columns.length > 0 ?columns.join(', ') : '*'} FROM ${this.entity} ${entity_nickname ? `AS ${entity_nickname} `: ''}`;
 
@@ -73,6 +68,20 @@ export default class DataLayer extends Connect {
       this.sql += ' WHERE '
       params.where.map(clause => this.sql += clause)
     }
+
+
+    if (group_by) {
+      this.sql += ` GROUP BY ${group_by} `
+    }
+
+    if (order_by) {
+      this.sql += ` ORDER BY ${order_by}` 
+    }
+
+    if (limit) {
+      this.sql += ` LIMIT ${limit} `
+    }
+
 
     return this;
   }
@@ -112,6 +121,12 @@ export default class DataLayer extends Connect {
     if (all) return data
     else return data.data
   }
+
+  async save() {
+    await super.exec();
+    return this;
+  }
+
 
   fail() {
     return super.getError()
