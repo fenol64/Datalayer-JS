@@ -45,7 +45,7 @@ await user.find({
 
 
 if (user.fail()) {
-  // console.log(user.fail())
+  console.log(user.fail())
 }
 
 console.log(user)
