@@ -1,7 +1,7 @@
 {
     "name": "db-datalayer-js",
     "description": "The datalayer-js is a persistent abstraction component of your database that serveless-mysql has prepared instructions for performing common routines such as registering, reading, editing, and removing data.",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "homepage": "https://github.com/NOX-0202/Datalayer-JS",
     "bugs": {
         "url": "https://github.com/NOX-0202/Datalayer-JS/issues",
