@@ -56,6 +56,7 @@ export default class Connect {
       this.error = error; 
     }
     this.close();
+    delete this.db
     return this;
   }
 
@@ -65,6 +66,7 @@ export default class Connect {
 
   async close() {
     if (this.db.quit()) {
+      
       return true;  
     } else {
       return false;
