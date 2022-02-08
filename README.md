@@ -78,20 +78,22 @@ Now you are ready to use the datalayer function :D
 	```
 - **create**
 	```javascript
-		user.create({
-			name:  "value",
-		}).save()
+      user.create({
+        name:  "value",
+      }).save()
 	```
 - **update**
 	```javascript
-		user.update({
-			name:  "value",
-		}).save()
+    user.update({
+      name:  "value",
+    })
 	```
 - **delete**
 	```javascript
-		let current_user = user.findById(4);
-		current_user.destroy()
+  let current_user = user.findById(4);
+  // param is bool, default value is false and it will update your deleted_at column in your database.
+  // when is true the method will delete the current_user
+  current_user.destroy() 
 	```
 
 
