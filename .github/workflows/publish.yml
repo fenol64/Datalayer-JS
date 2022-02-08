@@ -13,6 +13,7 @@ jobs:
             - name: 📚 checkout
               uses: actions/checkout@v2.1.1
             - name: 🟢 node
+              ACTIONS_ALLOW_UNSECURE_COMMANDS: true
               uses: actions/setup-node@v1.4.2
               with:
                   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
