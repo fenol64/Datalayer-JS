@@ -1,18 +1,18 @@
-name: "🚀 release"
+name: "🚀 Publish"
 
 on:
-    release:
-        types: [published]
+    push:
+        branches: [published]
 
 jobs:
     release:
-        name: 🚀 release
+        name: 🚀 Publish
         runs-on: ubuntu-latest
         steps:
             - name: 📚 checkout
               uses: actions/checkout@v2.1.1
             - name: 🟢 node
-              uses: actions/setup-node@v1.4.2
+              uses: actions/setup-node@v14.18.2
               with:
                   node-version: 12
                   registry-url: https://registry.npmjs.org
