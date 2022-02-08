@@ -13,7 +13,6 @@ jobs:
             - name: 📚 checkout
               uses: actions/checkout@v2.1.1
             - name: 🟢 node
-              ACTIONS_ALLOW_UNSECURE_COMMANDS: true
               uses: actions/setup-node@v1.4.2
               with:
                   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
@@ -22,5 +21,5 @@ jobs:
             - name: 🚀 publish
               run: npm publish --access public
               env:
-                 
+                  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
                   NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
