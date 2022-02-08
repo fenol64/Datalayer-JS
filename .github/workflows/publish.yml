@@ -15,11 +15,10 @@ jobs:
             - name: 🟢 node
               uses: actions/setup-node@v1.4.2
               with:
-                  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
                   node-version: 12
                   registry-url: https://registry.npmjs.org
             - name: 🚀 publish
               run: npm publish --access public
               env:
-                  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
                   NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+                  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
