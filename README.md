@@ -78,9 +78,16 @@ Now you are ready to use the datalayer function :D
 	```
 - **create**
 	```javascript
-      user.create({
-        name:  "value",
-      }).save()
+    user.create({
+      name:  "value",
+    }).save()
+
+    // Multiple lines insert
+
+    await produtos.create([
+      {code:"000", name:"teste 1",value: 1.5},
+      {code:"001", name:"teste 1", value: null},
+    ]).save();
 	```
 - **update**
 	```javascript

@@ -11,9 +11,10 @@ const produtos = (new User())
 
 // const select_users = await user.find().fetch()
 
-await produtos.create(
-  {code:"000", name:"teste 1",value: 1.5}
-).save();
+await produtos.create([
+  {code:"000", name:"teste 1",value: 1.5},
+  {code:"001", name:"teste 1", value: null},
+]).save();
 
 // await user.find({ 
 //   entity_nickname: "user",
