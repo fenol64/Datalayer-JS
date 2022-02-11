@@ -50,7 +50,7 @@ Now you are ready to use the datalayer function :D
   This is a select from your database
 
   ```javascript
-    await user.find().fetch() // same: SELECT * FROM users
+  await user.find().fetch() // same: SELECT * FROM users
   ```
 
   example with all params
@@ -78,7 +78,7 @@ Now you are ready to use the datalayer function :D
 	```
 - **create**
 	```javascript
-    user.create({
+    await user.create({
       name:  "value",
     }).save()
 
@@ -91,7 +91,7 @@ Now you are ready to use the datalayer function :D
 	```
 - **update**
 	```javascript
-    user.update({
+    await user.update({
       name:  "value",
     })
 	```
