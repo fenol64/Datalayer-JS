@@ -32,7 +32,7 @@ on the root of the project create a `` .env  `` file with the following contents
 then you create a folder named models, create a model like this:
 
 ```javascript
-  import DataLayer  from "db-datalayer-js";
+  import DataLayer from "db-datalayer-js";
 
   class User extends DataLayer {
     constructor() {
@@ -104,6 +104,6 @@ Now you are ready to use the datalayer function :D
 	```
 
 
-# CONTRIBUTE
+# HELP ME, CONTRIBUTE
 
- you can do it just make a pull request, I'll be happy :,)
+ you can do it just make a pull request, I'll be happy XD
