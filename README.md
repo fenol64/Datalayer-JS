@@ -32,8 +32,8 @@ on the root of the project create a `` .env  `` file with the following contents
 then you create a folder named models, create a model like this:
 
 ```javascript
-  import DataLayer  from "./src/DataLayer.js";
-
+  import DataLayer  from "db-datalayer-js";
+  
   class User extends DataLayer {
     constructor() {
         // entity, required, primary and timestamps
