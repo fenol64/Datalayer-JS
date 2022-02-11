@@ -3,15 +3,13 @@ import DataLayer  from "./src/DataLayer.js";
 class User extends DataLayer {
   constructor() {
       // entity, required, primary and timestamps
-      super("users_roles", [], "id", true)
+      super("users", [], "id", true)
   }
 }
 
+let user  = new User().find()
 
-const user = new User();
-
-
-//await user.find({ 
+// { 
 //   entity_nickname: "user",
 //   columns: ["user.username", "users_roles.name as role"],
 //   joins: [{
@@ -19,8 +17,7 @@ const user = new User();
 //     table: "users_roles",
 //     conditions: ["user.role_id = users_roles.id"]
 //   }]
-// }).fetch(true)
-
+// }
 // user.create({
 //   name: "teste",
 //   sector: 'testr',
@@ -35,7 +32,9 @@ const user = new User();
 // })
 
 
-await user.findById(4)
+// await user.findById(4)
+
+console.log(user)
 
 
 
