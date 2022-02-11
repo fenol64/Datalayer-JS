@@ -1,6 +1,6 @@
 [![Maintainer](http://img.shields.io/badge/maintainer-NOX%E2%80%930202-blue.svg?style=flat-square)](https://www.instagram.com/phat_oliveira/)
 [![Source Code](http://img.shields.io/badge/source-db%E2%80%93datalayer%E2%80%93js-blue.svg?style=flat-square)](https://github.com/NOX-0202/Datalayer-JS)
-![Latest Version](http://img.shields.io/badge/version-v0.0.1-blue.svg?style=flat-square)
+![Latest Version](http://img.shields.io/badge/version-v1.0.2-blue.svg?style=flat-square)
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 # Datalayer-JS
@@ -33,7 +33,7 @@ then you create a folder named models, create a model like this:
 
 ```javascript
   import DataLayer  from "db-datalayer-js";
-  
+
   class User extends DataLayer {
     constructor() {
         // entity, required, primary and timestamps
