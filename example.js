@@ -7,24 +7,26 @@ class User extends DataLayer {
   }
 }
 
-let user  = new User().find()
-
-const user = (new User())
+const produtos = (new User())
 
 // const select_users = await user.find().fetch()
 
-await user.find({ 
-  entity_nickname: "user",
-  columns: ["user.username", "users_roles.name as role"],
-  joins: [{
-    type: "left",
-    table: "users_roles",
-    conditions: ["user.role_id = users_roles.id"]
-  }],
-  limit: 1,
-  group_by: "user.id",
-  order_by: "user.id"
-}).fetch(true)
+await produtos.create(
+  {code:"000", name:"teste 1",value: 1.5}
+).save();
+
+// await user.find({ 
+//   entity_nickname: "user",
+//   columns: ["user.username", "users_roles.name as role"],
+//   joins: [{
+//     type: "left",
+//     table: "users_roles",
+//     conditions: ["user.role_id = users_roles.id"]
+//   }],
+//   limit: 1,
+//   group_by: "user.id",
+//   order_by: "user.id"
+// }).fetch(true)
 
 
 // user.create({
@@ -45,11 +47,11 @@ await user.find({
 // await findUsers.destroy()
 
 
-if (user.fail()) {
-  console.log(user.fail())
+if (produtos.fail()) {
+  console.log(produtos.fail())
 }
 
-console.log(user)
+console.log(produtos)
 
 
 

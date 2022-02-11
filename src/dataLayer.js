@@ -32,13 +32,12 @@ export default class DataLayer extends Connect {
       data.forEach((obj, index) => {
         const row = Object.values(obj);
         if(row.length !== columns.length) throw new Error("Data and columns don't match in the row "+(index+1));
-        values.push(`(${row.map(value => treatValue(value)).join(',')})`);
+        values.push(`(${row.map(value => this.treatValue(value)).join(',')})`);
       });
       
     } else if (typeof data === "object") {
-      console.log("is object");
       columns = Object.keys(data);
-      values.push(`(${Object.values(data).map(value => treatValue(value)).join(',')})`);
+      values.push(`(${Object.values(data).map(value => this.treatValue(value)).join(',')})`);
     }
     
     this.sql = `INSERT INTO ${this.entity} (\`${columns.join('`, `')}\`) VALUES ${values.join(', ')}`;

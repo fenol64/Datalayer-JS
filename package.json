@@ -20,7 +20,8 @@
     "scripts": {
         "query": "node ./src/queryBuilder.js",
         "datalayer": "node ./src/dataLayer.js",
-        "conn": "node ./src/Connect.js"
+        "conn": "node ./src/Connect.js",
+        "exec": "node ./example.js"
     },
     "type": "module",
     "dependencies": {
