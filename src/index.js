@@ -1,6 +1,5 @@
 import Connect from "./Connect.js";
 import 'dotenv/config'
-
 export default class DataLayer extends Connect {
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
