@@ -14,14 +14,33 @@ export default class DataLayer extends Connect {
 
     return this;
   }
+  
+  treatValue(value) {
+    if(value === null || value.toString() === 'NULL') return 'NULL';
+    else if(typeof value === 'number') return value;
+    else if(typeof value === 'boolean') return value ? 1 : 0;
+    else return `'${value}'`;
+  }
 
-  create(insert_obj) {
+  create(data) {
+    var columns = [];
+    var values = [];
+      
+    if(Array.isArray(data)) {
+      columns = Object.keys(data[0]);
 
-    if (this.timestamps) 
-      insert_obj.created_at = new Date().toISOString().replace('T', " ").split('.')[0];
+      data.forEach((obj, index) => {
+        const row = Object.values(obj);
+        if(row.length !== columns.length) throw new Error("Data and columns don't match in the row "+(index+1));
+        values.push(`(${row.map(value => this.treatValue(value)).join(',')})`);
+      });
+      
+    } else if (typeof data === "object") {
+      columns = Object.keys(data);
+      values.push(`(${Object.values(data).map(value => this.treatValue(value)).join(',')})`);
+    }
     
-    this.sql = `INSERT INTO ${this.entity} (${Object.keys(insert_obj).join(', ')}) VALUES (${Object.values(insert_obj).map(value => `'${value}'`)})`;
-
+    this.sql = `INSERT INTO ${this.entity} (\`${columns.join('`, `')}\`) VALUES ${values.join(', ')}`;
     return this;
   }
 

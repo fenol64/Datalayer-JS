@@ -32,7 +32,7 @@ on the root of the project create a `` .env  `` file with the following contents
 then you create a folder named models, create a model like this:
 
 ```javascript
-  import DataLayer  from "db-datalayer-js";
+  import DataLayer from "db-datalayer-js";
 
   class User extends DataLayer {
     constructor() {
@@ -50,7 +50,7 @@ Now you are ready to use the datalayer function :D
   This is a select from your database
 
   ```javascript
-    await user.find().fetch() // same: SELECT * FROM users
+  await user.find().fetch() // same: SELECT * FROM users
   ```
 
   example with all params
@@ -78,13 +78,20 @@ Now you are ready to use the datalayer function :D
 	```
 - **create**
 	```javascript
-      user.create({
-        name:  "value",
-      }).save()
+    await user.create({
+      name:  "value",
+    }).save()
+
+    // Multiple lines insert
+
+    await produtos.create([
+      {code:"000", name:"teste 1",value: 1.5},
+      {code:"001", name:"teste 1", value: null},
+    ]).save();
 	```
 - **update**
 	```javascript
-    user.update({
+    await user.update({
       name:  "value",
     })
 	```
@@ -97,6 +104,6 @@ Now you are ready to use the datalayer function :D
 	```
 
 
-# CONTRIBUTE
+# HELP ME, CONTRIBUTE
 
- you can do it just make a pull request, I'll be happy :,)
+ you can do it just make a pull request, I'll be happy XD
