@@ -1,10 +1,10 @@
-import Connect from "./Connect.js";
-import 'dotenv/config'
+import "./Connect.js"
+
 export default class DataLayer extends Connect {
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
 
-    super()
+    super();
 
     this.entity = entity;
     this.required = required;
@@ -47,8 +47,8 @@ export default class DataLayer extends Connect {
     if (this.timestamps) 
       update_obj.updated_at = new Date().toISOString().replace('T', " ").split('.')[0];
     
-    let id = update_obj[this.primary]
-    delete update_obj[this.primary]
+    let id = update_obj[this.primary];
+    delete update_obj[this.primary];
 
     this.sql = `UPDATE ${this.entity} SET ${Object.entries(update_obj).map(([key, value]) => `${key}='${value}'`)} WHERE ${this.primary} = ${id} ${where ?? ""}`;
 
@@ -66,38 +66,38 @@ export default class DataLayer extends Connect {
         switch (join.type) {
 
           case 'inner':
-            join.type = "INNER JOIN"
+            join.type = "INNER JOIN";
             break;
   
           case 'left':
-            join.type = "LEFT JOIN"
+            join.type = "LEFT JOIN";
             break;
   
           case 'right':
-            join.type = "RIGHT JOIN"
+            join.type = "RIGHT JOIN";
             break;
   
         }
-        this.sql += `${join.type} ${join.table} ON ${join.conditions.join(', ')}`
-      })
+        this.sql += `${join.type} ${join.table} ON ${join.conditions.join(', ')}`;
+      });
     }
 
     if (params.where) {
-      this.sql += ' WHERE '
-      params.where.map(clause => this.sql += clause)
+      this.sql += ' WHERE ';
+      params.where.map(clause => this.sql += clause);
     }
 
 
     if (group_by) {
-      this.sql += ` GROUP BY ${group_by} `
+      this.sql += ` GROUP BY ${group_by} `;
     }
 
     if (order_by) {
-      this.sql += ` ORDER BY ${order_by}` 
+      this.sql += ` ORDER BY ${order_by}`; 
     }
 
     if (limit) {
-      this.sql += ` LIMIT ${limit} `
+      this.sql += ` LIMIT ${limit} `;
     }
 
 
@@ -115,7 +115,7 @@ export default class DataLayer extends Connect {
 
   async destroy(exclude = false) {
 
-    const id = this.data[0].id
+    const id = this.data[0].id;
 
     if (exclude) 
       this.delete(id);
@@ -129,7 +129,7 @@ export default class DataLayer extends Connect {
 
   async delete (id) {
     this.sql = `DELETE FROM ${this.entity} WHERE ${this.primary} = ${id}`;
-    this.data = await super.exec()
+    this.data = await super.exec();
     return this;
   }
 
@@ -151,3 +151,4 @@ export default class DataLayer extends Connect {
   }
 
 }
+

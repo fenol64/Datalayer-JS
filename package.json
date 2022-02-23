@@ -1,4 +1,5 @@
 {
+    "type": "module",
     "name": "db-datalayer-js",
     "description": "The datalayer-js is a persistent abstraction component of your database that serverless-mysql has prepared instructions for performing common routines such as registering, reading, editing, and removing data.",
     "version": "1.0.9",
