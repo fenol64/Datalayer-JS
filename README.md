@@ -6,8 +6,6 @@
 # Datalayer-JS
 The datalayer-js is a persistent abstraction component of your database that serverless-mysql has prepared instructions for performing common routines such as registering, reading, editing, and removing data.
 
-O datalayer-js é um componente para abstração de persistência no seu banco de dados que usa serverless-mysql com prepared statements para executar rotinas comuns como cadastrar, ler, editar e remover dados.
-
 # Highlights
 - Easy to set up (Fácil de configurar)
 - Total CRUD abstraction (Abstração total do CRUD)
