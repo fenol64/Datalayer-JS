@@ -1,12 +1,12 @@
 {
-    "name": "db-datalayer-js",
+    "name": "@nox-0202/datalayer-js",
     "type": "module",
     "description": "The datalayer-js is a persistent abstraction component of your database that serverless-mysql has prepared instructions for performing common routines such as registering, reading, editing, and removing data.",
-    "version": "1.1.4",
+    "version": "1.0.1",
     "main": "index.js",
-    "homepage": "https://github.com/NOX-0202/db-datalayer-js",
+    "homepage": "https://github.com/NOX-0202/datalayer-js",
     "bugs": {
-        "url": "https://github.com/NOX-0202/db-datalayer-js/issues",
+        "url": "https://github.com/NOX-0202/datalayer-js/issues",
         "email": "fernandinho.nco@gmail.com"
     },
     "keywords": [
@@ -16,7 +16,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git://github.com/NOX-0202/db-datalayer-js.git"
+        "url": "git://github.com/NOX-0202/datalayer-js.git"
     }, 
     "publishConfig": {
         "registry":"https://npm.pkg.github.com/"
