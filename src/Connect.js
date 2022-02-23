@@ -1,4 +1,5 @@
 import mysql from "serverless-mysql";
+import "dotenv/config"
 export default class Connect {
 
   constructor(driver, params = {}, options = {}) {
