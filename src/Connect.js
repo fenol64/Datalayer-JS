@@ -1,6 +1,6 @@
-import mysql from "serverless-mysql";
-import "dotenv/config"
-export default class Connect {
+const mysql = require("serverless-mysql");
+require('dotenv').config()
+class Connect {
 
   constructor(driver, params = {}, options = {}) {
 
@@ -75,4 +75,5 @@ export default class Connect {
   }
 }
 
+module.exports = Connect
 

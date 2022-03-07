@@ -1,6 +1,6 @@
-import Connect from "./src/Connect.js";
-import 'dotenv/config'
-export default class DataLayer extends Connect {
+const  Connect = require("./src/Connect.js")
+require('dotenv').config()
+class DataLayer extends Connect {
 
   constructor(entity, required = [], primary = "id", timestamps = true) {
 
@@ -156,3 +156,5 @@ export default class DataLayer extends Connect {
   }
 
 }
+
+module.exports = DataLayer;
