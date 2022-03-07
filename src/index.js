@@ -38,6 +38,8 @@ export default class DataLayer extends Connect {
       columns = Object.keys(data);
       values.push(`(${Object.values(data).map(value => this.treatValue(value)).join(',')})`);
     }
+
+
     
     this.sql = `INSERT INTO ${this.entity} (\`${columns.join('`, `')}\`) VALUES ${values.join(', ')}`;
     return this;
