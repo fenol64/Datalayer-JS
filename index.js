@@ -24,11 +24,6 @@ class DataLayer extends Connect {
   create(data) {
     var columns = [];
     var values = [];
-
-    if (this.timestamps) {
-      columns.push('created_at')
-      values.push(`'${new Date().toISOString().replace("T", " ").split(".")[0]}'`)
-     }
       
     if(Array.isArray(data)) {
       columns = Object.keys(data[0]);
