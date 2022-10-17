@@ -12,7 +12,7 @@ The datalayer-js is a persistent abstraction component of your database that ser
 - Create safe models (Crie de modelos seguros)
 
 # INSTALLATION AND USAGE
-DataLayer-js is available via NPM: 
+DataLayer-js is available via NPM:
 
 ```
   npm i db-datalayer-js
@@ -44,7 +44,7 @@ Now you are ready to use the datalayer function :D
 # DOCS
 
 - **find**
-  
+
   This is a select from your database
 
   ```javascript
@@ -53,13 +53,14 @@ Now you are ready to use the datalayer function :D
 
   example with all params
   ```javascript
-  await user.find({ 
-    entity_nickname: "user",
+  await user.find({
+    table: "users", // if you are using models, you can omit this
+    nick: "user",
     columns: ["user.username", "users_roles.name as role"],
     joins: [{
       type: "left",
       table: "users_roles",
-      conditions: ["user.role_id = users_roles.id"]
+      on: ["user.role_id = users_roles.id"]
     }],
     where: [
       "user.username = 'teste'"
@@ -98,7 +99,7 @@ Now you are ready to use the datalayer function :D
   let current_user = user.findById(4);
   // param is bool, default value is false and it will update your deleted_at column in your database.
   // when is true the method will delete the current_user
-  current_user.destroy() 
+  current_user.destroy()
 	```
 
 

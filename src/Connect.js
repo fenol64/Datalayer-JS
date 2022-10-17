@@ -2,10 +2,10 @@ const mysql = require("serverless-mysql");
 require('dotenv').config()
 class Connect {
 
-  constructor(driver, params = {}, options = {}) {
+  constructor(params = {}, options = {}) {
 
     const con_params = {
-      driver: process.env.DRIVER || driver,
+      driver: process.env.DRIVER || (params.driver ?? "mysql"),
       host: process.env.HOST || (params.host ?? "localhost"),
       port: process.env.PORT || (params.port ?? 3306),
       user: process.env.USER || (params.user ?? "root"),
@@ -38,7 +38,7 @@ class Connect {
   }
 
   async mysql(params) {
-    let success = false; 
+    let success = false;
 
     if (this.db = mysql({ config: params })) {
       success = true
@@ -53,25 +53,25 @@ class Connect {
       this.data = await this.db.query(this.sql);
       this.success = true;
     } catch (err) {
-      let error = err; 
-      this.error = error; 
+      let error = err;
+      this.error = error;
     }
     this.close();
     delete this.db
     return this;
   }
 
-  getError () {
+  getError() {
     return this.error;
   }
 
   async close() {
     if (this.db.quit()) {
-      return true;  
+      return true;
     } else {
       return false;
     }
-     
+
   }
 }
 
