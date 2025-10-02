@@ -4,9 +4,8 @@
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 <center>
-	
-![datalayer image](/examples/datalayerjs.png](https://raw.githubusercontent.com/fenol64/Datalayer-JS/refs/heads/main/examples/datalayerjs.png))
 
+![datalayer image](https://raw.githubusercontent.com/fenol64/Datalayer-JS/refs/heads/main/examples/datalayerjs.png)
 </center>
 
 <br>
